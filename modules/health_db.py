@@ -6,8 +6,8 @@
 # 원본 데이터와의 일치 검증 코드를 작성해줘."
 # 사용한 사람: 김윤빈
 # 사용 날짜: 2026-11-16
-
 import csv
+import json
 from datetime import datetime
 from pathlib import Path
 
@@ -77,7 +77,7 @@ class HealthDatabase:
 
             print("TXT 파일 저장 완료:",path)
 
-        except (OSError, csv.Error, TypeError) as error:
+        except (OSError, TypeError) as error:
             print("TXT 파일 저장 오류:",error)
 
     #TXT 파일을 읽어 딕셔너리 목록으로 반환
@@ -86,7 +86,7 @@ class HealthDatabase:
             with open(path,"r",encoding="utf-8",newline="") as file:
                 reader = csv.DictReader(file, delimiter="\t")
                 return [self.convert_row(row) for row in reader]
-        except(OSError,csv.Error,ValueError,KeyError) as error:
+        except(OSError,ValueError,KeyError) as error:
             print("TXT 파일 읽기 오류:",error)
             return []
 
